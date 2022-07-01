@@ -51,16 +51,13 @@ function game() {
                 roundScore++;
                 playerScore++;
                 console.log(`Round ${roundScore}\n${win}`);        
-                // console.log(scoreBoard);
             } else if (playRound(playerSelection, computerSelection) === lose) {                
                 roundScore++;
                 computerScore++;
                 console.log(`Round ${roundScore}\n${lose}`);
-                // console.log(scoreBoard);
             } else {
                 roundScore++;
                 console.log(`Round ${roundScore}\n${tie}`);
-                // console.log(scoreBoard);
             }
     } 
     
