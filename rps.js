@@ -40,8 +40,6 @@ function game() {
     for (let i = 0; i < 5; i++) {
     const playerSelection = capitalize(prompt("Start the game by picking among 'Rock, Paper, Scissors':"));
     const computerSelection = computerPlay();
-    // If I have scoreBoard displayed after each round the count starts from 0 instead of 1. Why?
-    // const scoreBoard = `Round ${roundScore}\nHuman ${playerScore} : ${computerScore} Computer`;
 
     const win = `You Won! ${playerSelection} beats ${computerSelection}`;
     const lose = `You Lose! ${computerSelection} beats ${playerSelection}`;
