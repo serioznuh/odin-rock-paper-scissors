@@ -79,7 +79,7 @@ function game() {
 	}
 }
 
-game();
+// game();
 
 /* //ALTERNATIVE SOLUTION
 //
