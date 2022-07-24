@@ -7,6 +7,34 @@ const scissors = document.getElementById('scissors');
 const humanColumn = document.getElementById('human');
 const computerColumn = document.getElementById('computer');
 const h3 = document.querySelector('h3');
+const modalText = document.getElementById('new-game-text');
+const computerRounds = document.getElementById('computer');
+const humanRounds = document.getElementById('human');
+
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnNewGame = document.getElementById('new-game-btn');
+
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+  playerScore = 0;
+  computerScore = 0;
+  h3.textContent = 'first to 5 points wins';
+
+  while (computerRounds.firstChild) {
+    computerRounds.removeChild(computerRounds.lastChild);
+  }
+
+  while (humanRounds.firstChild) {
+    humanRounds.removeChild(humanRounds.lastChild);
+  }
+};
 
 let playerScore = 0;
 let computerScore = 0;
@@ -86,14 +114,14 @@ function game(playerSelection) {
   //     imgHuman.classList.add('lost');
   //   }
 
-  const scoreBoard = `Human ${playerScore} : ${computerScore} Computer`;
-  h3.textContent = scoreBoard;
-
-  if (playerScore === 5) {
-    console.log('WIN');
-  }
-
-  if (computerScore === 5) {
-    console.log('LOST');
+  h3.textContent = `Human ${playerScore} : ${computerScore} Computer`;
+  if (playerScore === 5 || computerScore === 5) {
+    openModal();
+    btnNewGame.addEventListener('click', closeModal);
+    if (playerScore === 5) {
+      modalText.textContent = 'You won!';
+    } else {
+      modalText.textContent = 'You lost!';
+    }
   }
 }
