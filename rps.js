@@ -7,34 +7,11 @@ const scissors = document.getElementById('scissors');
 const humanColumn = document.getElementById('human');
 const computerColumn = document.getElementById('computer');
 const h3 = document.querySelector('h3');
-const modalText = document.getElementById('new-game-text');
-const computerRounds = document.getElementById('computer');
-const humanRounds = document.getElementById('human');
 
+const modalText = document.getElementById('new-game-text');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnNewGame = document.getElementById('new-game-btn');
-
-const openModal = function () {
-  modal.classList.remove('hidden');
-  overlay.classList.remove('hidden');
-};
-
-const closeModal = function () {
-  modal.classList.add('hidden');
-  overlay.classList.add('hidden');
-  playerScore = 0;
-  computerScore = 0;
-  h3.textContent = 'first to 5 points wins';
-
-  while (computerRounds.firstChild) {
-    computerRounds.removeChild(computerRounds.lastChild);
-  }
-
-  while (humanRounds.firstChild) {
-    humanRounds.removeChild(humanRounds.lastChild);
-  }
-};
 
 let playerScore = 0;
 let computerScore = 0;
@@ -50,6 +27,27 @@ paper.addEventListener('click', () => {
 scissors.addEventListener('click', () => {
   game('scissors');
 });
+
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+  playerScore = 0;
+  computerScore = 0;
+  h3.textContent = 'first to 5 points wins';
+
+  while (computerColumn.firstChild) {
+    computerColumn.removeChild(computerColumn.lastChild);
+  }
+
+  while (humanColumn.firstChild) {
+    humanColumn.removeChild(humanColumn.lastChild);
+  }
+};
 
 function pasteImgComputer(computerSelection) {
   const imgComp = document.createElement('img');
@@ -72,17 +70,18 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    // return 'tie';
+    computerColumn.firstChild.classList.add('lost');
+    humanColumn.firstChild.classList.add('lost');
   } else if (
     (playerSelection === 'rock' && computerSelection === 'paper') ||
     (playerSelection === 'scissors' && computerSelection === 'rock') ||
     (playerSelection === 'paper' && computerSelection === 'scissors')
   ) {
     computerScore++;
-    // return 'lost';
+    humanColumn.firstChild.classList.add('lost');
   } else {
     playerScore++;
-    // return 'win';
+    computerColumn.firstChild.classList.add('lost');
   }
 }
 
@@ -105,23 +104,15 @@ function game(playerSelection) {
     pasteImgHuman('scissors');
   }
 
-  //   imgComp.classList.add('lost');
-
   playRound(playerSelection, computerSelection);
-  //   if ((playRound = 'win')) {
-  //     imgComp.classList.add('lost');
-  //   } else if ((playRound = 'lost')) {
-  //     imgHuman.classList.add('lost');
-  //   }
 
   h3.textContent = `Human ${playerScore} : ${computerScore} Computer`;
+
   if (playerScore === 5 || computerScore === 5) {
     openModal();
     btnNewGame.addEventListener('click', closeModal);
-    if (playerScore === 5) {
-      modalText.textContent = 'You won!';
-    } else {
-      modalText.textContent = 'You lost!';
-    }
+    playerScore === 5
+      ? (modalText.textContent = 'You won!')
+      : (modalText.textContent = 'You lost!');
   }
 }
